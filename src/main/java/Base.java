@@ -3,12 +3,17 @@ package main.java;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.remote.MobileCapabilityType;
+import io.appium.java_client.service.local.AppiumDriverLocalService;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.ServerSocket;
 import java.net.URL;
 
 public class Base {
+
+public static AppiumDriverLocalService service;
 
     public static AndroidDriver<AndroidElement> capabilities(String device) throws MalformedURLException {
         String apkPath = System.getProperty("user.dir") + "/original.apk";
@@ -26,4 +31,38 @@ public class Base {
 
 
     }
+
+    public AppiumDriverLocalService startServer()
+    {
+        //
+        boolean flag=	checkIfServerIsRunnning(4723);
+        if(!flag)
+        {
+
+            service=AppiumDriverLocalService.buildDefaultService();
+            service.start();
+        }
+        return service;
+
+    }
+
+
+
+    public static boolean checkIfServerIsRunnning(int port) {
+
+        boolean isServerRunning = false;
+        ServerSocket serverSocket;
+        try {
+            serverSocket = new ServerSocket(port);
+
+            serverSocket.close();
+        } catch (IOException e) {
+            //If control comes here, then it means that the port is in use
+            isServerRunning = true;
+        } finally {
+            serverSocket = null;
+        }
+        return isServerRunning;
+    }
+
 }

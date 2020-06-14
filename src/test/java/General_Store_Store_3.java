@@ -20,7 +20,7 @@ import static io.appium.java_client.touch.offset.ElementOption.element;
 public class General_Store_Store_3 extends General_Store_Base {
 
   public static void main (String args []) throws MalformedURLException, InterruptedException {
-
+      service = startServer();
       AndroidDriver<AndroidElement> driver =  capabilities("emulator");
       driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
       driver.findElement(By.id("android:id/text1")).click();
@@ -50,6 +50,7 @@ public class General_Store_Store_3 extends General_Store_Base {
       t.longPress(LongPressOptions.longPressOptions().withElement(element(Terms))).perform();
       driver.findElementByAndroidUIAutomator("text(\"CLOSE\")").click();
       driver.findElementByAndroidUIAutomator("text(\"Visit to the website to complete purchase\")").click();
+
 
       Set<String> contexts = driver.getContextHandles();
       for ( String context : contexts) {

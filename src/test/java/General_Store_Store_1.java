@@ -8,10 +8,13 @@ import org.openqa.selenium.By;
 import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
 
+
+
 public class General_Store_Store_1 extends General_Store_Base {
 
   public static void main (String args []) throws MalformedURLException {
 
+        service = startServer();
       AndroidDriver<AndroidElement> driver =  capabilities("emulator");
       driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
       driver.findElement(By.id("android:id/text1")).click();
